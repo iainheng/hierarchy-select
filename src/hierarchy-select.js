@@ -251,7 +251,8 @@
                 } else {
                     items.each(function() {
                         var item = $(this);
-                        var text = item.text().toLowerCase();
+                        var text = (item.data('text') ? item.data('text') : item.text()).toLowerCase();
+
                         if (text.indexOf(searchString) !== -1) {
                             item.toggleClass('disabled', false);
                             item.toggleClass('d-none', false);
