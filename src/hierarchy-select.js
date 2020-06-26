@@ -24,12 +24,17 @@
             this.searchListener();
         },
         initSelect: function() {
-            var item = this.$menuInner.find('a[data-default-selected]:first');
-            if (item.length) {
-                this.setValue(item.data('value'));
+            var hiddenFieldValue = this.$hiddenField.val();
+            if (this.options.initialValueSet && hiddenFieldValue && hiddenFieldValue.length > 0) {
+                this.setValue(hiddenFieldValue);
             } else {
-                var firstItem = this.$menuInner.find('a:first');
-                this.setValue(firstItem.data('value'));
+                var item = this.$menuInner.find('a[data-default-selected]:first');
+                if (item.length) {
+                    this.setValue(item.data('value'));
+                } else {
+                    var firstItem = this.$menuInner.find('a:first');
+                    this.setValue(firstItem.data('value'));
+                }
             }
         },
         setWidth: function() {
@@ -78,6 +83,7 @@
                 this.$button.html(text);
                 this.$hiddenField.val(value);
                 this.$menu.find('.active').removeClass('active');
+                if (this.options.onChange) this.options.onChange(value);
                 a.addClass('active');
             }
         },
@@ -294,7 +300,8 @@
         width: 'auto',
         height: '256px',
         hierarchy: true,
-        search: true
+        search: true,
+        initialValueSet: false
     };
     $.fn.hierarchySelect.Constructor = HierarchySelect;
 
