@@ -223,6 +223,7 @@
                         that.$button.focus();
                         break;
                     case 13: // Enter
+                        e.preventDefault(); // prevent form submit
                         that.selectItem();
                         break;
                     case 27: // Esc
