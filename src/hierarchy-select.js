@@ -83,7 +83,8 @@
                 this.$button.html(text);
                 this.$hiddenField.val(value).trigger('change');
                 this.$menu.find('.active').removeClass('active');
-                if (this.options.onChange) this.options.onChange(value);
+                if (this.options.onChange) this.options.onChange(value, text);
+                if (this.options.resetSearchOnSelection) this.resetSearch();
                 a.addClass('active');
             }
         },
@@ -108,6 +109,9 @@
                     processElementOffset(this.$menuInner[0], items[index + 1]);
                 }
             }
+        },
+        resetSearch: function() {
+            this.$searchbox.val('').trigger('propertychange');
         },
         selectItem: function () {
             var that = this;
@@ -302,7 +306,8 @@
         height: '256px',
         hierarchy: true,
         search: true,
-        initialValueSet: false
+        initialValueSet: false,
+        resetSearchOnSelection: false
     };
     $.fn.hierarchySelect.Constructor = HierarchySelect;
 
